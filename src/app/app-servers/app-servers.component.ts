@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class AppServersComponent implements OnInit {
 
   allowedNewServer : boolean = false;
+  status : string = "event not triggered.";
+
   constructor() {
     setTimeout(()=> { this.allowedNewServer = true;}, 3000)
   }
@@ -17,6 +19,12 @@ export class AppServersComponent implements OnInit {
   getAllowedNewServer(){
     return this.allowedNewServer;
   }
+
+  onCreateServer(){
+    this.status = "event is triggered.";
+    this.allowedNewServer = false;;
+  }
+
   ngOnInit(): void {
   }
 
