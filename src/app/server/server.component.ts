@@ -12,4 +12,8 @@ import { Component } from "@angular/core";
 export class ServerComponent {
   serverId : number = 10;
   status : string = "work";
+
+  getStatus(){
+    return "method return a value";
+  }
 }
