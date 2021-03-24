@@ -1,5 +1,6 @@
 <div class="container">
-  <button class="btn btn-primary" [disabled]="!allowedNewServer">add server</button>
+  <button class="btn btn-primary" [disabled]="!getAllowedNewServer()">add server</button>
+  <p>{{getAllowedNewServer()}}</p>
   <p>app-servers works!</p>
   <app-server></app-server>
   <app-server></app-server>

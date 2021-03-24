@@ -14,6 +14,9 @@ export class AppServersComponent implements OnInit {
     setTimeout(()=> { this.allowedNewServer = true;}, 3000)
   }
 
+  getAllowedNewServer(){
+    return this.allowedNewServer;
+  }
   ngOnInit(): void {
   }
 
