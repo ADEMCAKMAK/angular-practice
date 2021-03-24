@@ -13,6 +13,7 @@ export class AppServersComponent implements OnInit {
   status : string = "event not triggered.";
   serverName : string = "test";
   created : boolean = false;
+  servers = ["test 1", "test 2"]
 
   constructor() {
     setTimeout(()=> { this.allowedNewServer = true;}, 3000)
@@ -26,6 +27,7 @@ export class AppServersComponent implements OnInit {
     this.status = "event is triggered.";
     this.allowedNewServer = false;
     this.created = true;
+    this.servers.push(this.serverName);
   }
 
   onUpdateServerName(event : Event){

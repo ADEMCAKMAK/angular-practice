@@ -6,12 +6,11 @@
   <ng-template #noServer>
     <p>No server created</p>
   </ng-template>
-  <button class="btn btn-primary" [disabled]="!getAllowedNewServer()" (click)="onCreateServer()">add server</button>
+  <button class="btn btn-primary" (click)="onCreateServer()">add server</button>
   <p>{{getAllowedNewServer()}}</p>
   <p>{{status}}</p>
   <p>app-servers works!</p>
-  <app-server></app-server>
-  <app-server></app-server>
+  <app-server *ngFor="let server of servers"></app-server>
 </div>
 
 
