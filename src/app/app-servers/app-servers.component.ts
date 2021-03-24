@@ -11,6 +11,7 @@ export class AppServersComponent implements OnInit {
 
   allowedNewServer : boolean = false;
   status : string = "event not triggered.";
+  serverName : string = "test";
 
   constructor() {
     setTimeout(()=> { this.allowedNewServer = true;}, 3000)
@@ -22,7 +23,12 @@ export class AppServersComponent implements OnInit {
 
   onCreateServer(){
     this.status = "event is triggered.";
-    this.allowedNewServer = false;;
+    this.allowedNewServer = false;
+  }
+
+  onUpdateServerName(event : Event){
+    console.log(event);
+    this.serverName = (<HTMLInputElement>event.target).value;
   }
 
   ngOnInit(): void {
