@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {fromArray} from "rxjs-compat/observable/fromArray";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  name = 'udemy-app';
+
+  showParagraph : boolean = false;
+  logItems = []
+
+  onToggleParagraph(){
+    this.logItems.push(this.logItems.length+1)
+    return this.showParagraph = !this.showParagraph;
+  }
 }
