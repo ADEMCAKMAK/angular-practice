@@ -9,19 +9,19 @@ import {Component, ViewEncapsulation} from '@angular/core';
 export class AppComponent {
   serverElements = [{type: 'server', name: 'Test Server', content: 'Content of server'}];
 
-    onServerAdded(serverData: {sname: string, scontent: string}) {
+    onServerAdded(serverData: {soname: string, content: string}) {
         this.serverElements.push({
           type: 'server',
-          name: serverData.sname,
-          content: serverData.scontent
+          name: serverData.soname,
+          content: serverData.content
         });
     }
 
-    onBlueprintAdded(blueprintData: {sname: string, scontent: string}) {
+    onBlueprintAdded(blueprintData: {soname: string, content: string}) {
         this.serverElements.push({
           type: 'blueprint',
-          name: blueprintData.sname,
-          content: blueprintData.scontent
+          name: blueprintData.soname,
+          content: blueprintData.content
         });
     }
 
