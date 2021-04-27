@@ -39,6 +39,11 @@
       </ng-template>
       <p appBasicHighlightDirective>style ng directive examples</p>
       <p [appBetterHighlight]="'yellow'" [defaultColor]="'red'">style ng directive examples</p>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">value 5</p>
+        <p *ngSwitchCase="10">value 10</p>
+        <p *ngSwitchCase="15">value 15</p>
+      </div>
     </div>
   </div>
 </div>
