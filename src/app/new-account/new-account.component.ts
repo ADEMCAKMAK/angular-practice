@@ -11,6 +11,9 @@ import {AccountsService} from '../accounts.service';
 export class NewAccountComponent {
 
   constructor(private logService: LoggingService, private accountService: AccountsService) {
+    this.accountService.statusUpdated.subscribe(
+        (status: string) => alert('status is updated')
+    );
   }
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountService.addAccount(accountName, accountStatus);
