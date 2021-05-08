@@ -1,49 +1,20 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <button
-        class="btn btn-primary"
-        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
-      <br><br>
-      <ul class="list-group">
-<!--        <div *ngIf="onlyOdd">
-          <li
-                  class="list-group-item"
-                  [ngClass]="{odd: odd % 2 !== 0}"
-                  [ngStyle]="{ background: odd % 2 !== 0 ? 'yellow': 'green'}"
-                  *ngFor="let odd of oddNumbers">
-            {{odd}}
-          </li>
-        </div>
-        <div *ngIf="!onlyOdd">
-          <li
-                  class="list-group-item"
-                  [ngClass]="{odd: even % 2 !== 0}"
-                  [ngStyle]="{ background: even % 2 !== 0 ? 'yellow': 'green'}"
-                  *ngFor="let even of evenNumbers">
-            {{even}}
-          </li>
-        </div>-->
-        <div *appUnless="onlyOdd">
-          <li
-                  class="list-group-item"
-                  [ngClass]="{odd: odd % 2 !== 0}"
-                  [ngStyle]="{ background: odd % 2 !== 0 ? 'yellow': 'green'}"
-                  *ngFor="let odd of oddNumbers">
-            {{odd}}
-          </li>
-        </div>
-      </ul>
-      <ng-template [ngIf]="onlyOdd">
-        <p>Only odd</p>
-      </ng-template>
-      <p appBasicHighlightDirective>style ng directive examples</p>
-      <p [appBetterHighlight]="'yellow'" [defaultColor]="'red'">style ng directive examples</p>
-      <div [ngSwitch]="value">
-        <p *ngSwitchCase="5">value 5</p>
-        <p *ngSwitchCase="10">value 10</p>
-        <p *ngSwitchCase="15">value 15</p>
-      </div>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <a routerLink="/">Home</a> |
+      <a [routerLink]="['user', 1]">
+        User 1
+      </a>
+      |
+      <a [routerLink]="['user', 2]">
+        User 2
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
