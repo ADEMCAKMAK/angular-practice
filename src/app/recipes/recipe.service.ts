@@ -1,47 +1,41 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {RecipeModel} from './recipe.model';
-import {IngredientModel} from '../shared/ingredient.model';
-import {ShoppingListService} from '../shopping-list/shopping-list.service';
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipeService {
 
-    recipeSelected = new EventEmitter<RecipeModel>();
+  private recipes: Recipe[] = [
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
+  ];
 
-    private recipes: RecipeModel[] = [
-        new RecipeModel(
-            'Test Recipe 1',
-            'Description of Test Recipe 1',
-            'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872',
-            [
-                new IngredientModel('test', 1),
-                new IngredientModel('test', 2)
-            ]
-        ),
-        new RecipeModel(
-            'Test Recipe 2',
-            'Description of Test Recipe 2',
-            'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872',
-            [
-                new IngredientModel('test', 3)
-            ]
-        )
-    ];
+  constructor(private slService: ShoppingListService) {}
 
-    constructor(private slService: ShoppingListService) {
-    }
+  getRecipes() {
+    return this.recipes.slice();
+  }
 
-    getRecipes(): RecipeModel[] {
-        return this.recipes.slice();
-    }
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
 
-    getRecipe(id: number): RecipeModel {
-        console.log('get recipe: ', id);
-        return this.recipes.slice()[id];
-    }
-
-    addIngredientToShoppingList(ingredients: IngredientModel[]): void {
-        this.slService.addIngredients(ingredients);
-    }
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
 }
