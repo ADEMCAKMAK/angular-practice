@@ -10,6 +10,7 @@ export class AppComponent {
 
   @ViewChild('htmlFormElement') signupForm: NgForm;
   defaultQuestion = 'pet';
+  answer = '';
 
   suggestUserName() {
     const suggestedName = 'Superuser';
