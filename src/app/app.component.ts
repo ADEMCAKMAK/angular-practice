@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ export class AppComponent {
     const suggestedName = 'Superuser';
   }
 
-  onSubmit(htmlFormElement: HTMLFormElement): void {
-    console.log('submitted');
+  onSubmit(htmlFormElement: NgForm): void {
+    console.log(htmlFormElement);
   }
 }
