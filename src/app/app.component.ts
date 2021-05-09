@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  suggestUserName() {
+    const suggestedName = 'Superuser';
+  }
 
+  onSubmit(htmlFormElement: HTMLFormElement): void {
+    console.log('submitted');
+  }
 }
