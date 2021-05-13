@@ -9,11 +9,11 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent
   ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
