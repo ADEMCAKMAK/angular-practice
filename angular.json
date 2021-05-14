@@ -103,11 +103,6 @@
       "root": "e2e/",
       "projectType": "application",
       "architect": {
-        "serve": {
-          "options": {
-            "port": 4201
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
