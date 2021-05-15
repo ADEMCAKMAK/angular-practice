@@ -1,56 +1,53 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  appStatus = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('stable');
-    }, 2000);
-  });
-  servers = [
-    {
-      instanceType: 'medium',
-      name: 'Production',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'large',
-      name: 'User Database',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'small',
-      name: 'Development Server',
-      status: 'offline',
-      started: new Date(15, 1, 2017)
-    },
-    {
-      instanceType: 'small',
-      name: 'Testing Environment Server',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
-    }
-  ];
-  filteredStatus = '';
-  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
-    return {
-      'list-group-item-success': server.status === 'stable',
-      'list-group-item-warning': server.status === 'offline',
-      'list-group-item-danger': server.status === 'critical'
-    };
+export class AppComponent implements OnInit {
+  loadedPosts = [];
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {}
+
+  onCreatePost(postData: { title: string; content: string }) {
+    // Send Http request
+    console.log(postData);
+    this.http.post(
+      'https://ng-angular-guide-f6090-default-rtdb.firebaseio.com/posts.json', 
+      postData
+    ).subscribe((response) => {
+      console.log(response);
+    });
   }
-  onAddServer() {
-    this.servers.push({
-      instanceType: 'small',
-      name: 'New Server',
-      status: 'stable',
-      started: new Date(15, 1, 2017)
+
+  onFetchPosts() {
+    // Send Http request
+    this.fetchPosts();
+  }
+
+  onClearPosts() {
+    // Send Http request
+  }
+
+  private fetchPosts() {
+    this.http.get(
+      'https://ng-angular-guide-f6090-default-rtdb.firebaseio.com/posts.json'
+    )
+    .pipe(map((response) => {
+      const postArray = [];
+      for( let key in response ){
+        if( response.hasOwnProperty(key) )
+          postArray.push({...response[key], id: key});
+      }
+      return postArray;
+    }))
+    .subscribe((response) => {
+      console.log(response);
     });
   }
 }
