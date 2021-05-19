@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    private duration: any;
 
     constructor(private httpClient: HttpClient, private router: Router){
 
@@ -43,15 +44,44 @@ export class AuthService {
         }),catchError(this.handleError));  
     }
 
-    logout() {
+    autoLogin() {
+        const userdata : {
+            email: string,
+            id: string,
+            _token: string, 
+            tokenExpireDate: string
+        } = JSON.parse(localStorage.getItem('userdata'));
+        if( !userdata )
+            return false
+
+        const loadeduser = new User(userdata.email, userdata.id, userdata._token, new Date(userdata.tokenExpireDate));
+
+        if( loadeduser.token )
+            this.user.next(loadeduser);
+    }
+
+    autoLogout(duration: number) {
+       this.duration = setTimeout(() => {
+            this.logout();
+        }, duration);
+    }
+
+    logout() { 
         this.user.next(null);
         this.router.navigate(['/auth']);
+        localStorage.clear();
+        if( this.duration )
+            clearTimeout(this.duration);
+           
+        this.duration = null;    
     }
 
     private handleAuth(email: string,id: string,token: string, tokenExpireDate: number) {
         const date = new Date( new Date().getTime() + tokenExpireDate*1000);
         const user = new User(email, id, token, date);
         this.user.next(user);
+        this.autoLogout(tokenExpireDate*1000);
+        localStorage.setItem('userdata', JSON.stringify(user));
     }
 
     private handleError(httpErrorResponse:HttpErrorResponse) {
