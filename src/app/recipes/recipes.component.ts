@@ -1,8 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-
-import { Recipe } from './recipe.model';
-import { RecipeService } from './recipe.service';
-import {Subscription} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recipes',
@@ -10,9 +6,10 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  private selectedRecipe: Recipe;
+
+  constructor() { }
 
   ngOnInit() {
-
   }
+
 }
