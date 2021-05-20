@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
+import { AlertComponent } from '../shared/alert/alert.component'
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html'
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
 
   subscription: Subscription;
 
@@ -16,7 +18,17 @@ export class AuthComponent {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  private closesubs: Subscription;
+
+  @ViewChild(PlaceholderDirective, {static:false}) alert: PlaceholderDirective;
+
+  constructor(private authService: AuthService, private router: Router,
+  private componentFactoryResolver: ComponentFactoryResolver) {}
+
+  ngOnDestroy(): void {
+    if( this.closesubs )
+      this.closesubs.unsubscribe();
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -49,6 +61,7 @@ export class AuthComponent {
     }, error => {
       console.log(error);
       this.error = error;
+      this.showErrorAlert(error);
       this.isLoading = false;
     });
 
@@ -57,5 +70,24 @@ export class AuthComponent {
 
   onHandleError() {
     this.error = null;
+  }
+
+  private showErrorAlert(message: string) {
+
+    // const alert = new AlertComponent();
+    const alertCompFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+
+    const hostViewContainerRef = this.alert.viewContainerRef
+
+    hostViewContainerRef.clear();
+
+    const compRef = hostViewContainerRef.createComponent(alertCompFactory);
+
+    compRef.instance.message = message;
+    this.closesubs = compRef.instance.close.subscribe(() => {
+      this.closesubs.unsubscribe();
+      hostViewContainerRef.clear();
+    });
+
   }
 }
