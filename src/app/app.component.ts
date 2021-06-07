@@ -1,27 +1,13 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Store } from '@ngrx/store';
-
-import { LoggingService } from './logging.service';
-import * as fromApp from './store/app.reducer';
-import * as AuthActions from './auth/store/auth.actions';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
-  constructor(
-    private store: Store<fromApp.AppState>,
-    private loggingService: LoggingService,
-    @Inject(PLATFORM_ID) private platformId
-  ) {}
+export class AppComponent {
+  list = ['Milk', 'Sugar', 'Bread'];
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.store.dispatch(new AuthActions.AutoLogin());
+    onAdd(item) {
+      this.list.push(item);
     }
-    this.loggingService.printLog('Hello from AppComponent ngOnInit');
-  }
 }
